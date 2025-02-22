@@ -1,4 +1,4 @@
-import Conversation from "../../../models/conversation";
+import Conversation from "../../../models/Conversation";
 import { connectToDB } from "../../utils/database";
 
 // 📌 Crear una nueva conversación (POST /api/conversations)

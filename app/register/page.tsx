@@ -27,6 +27,8 @@ export default function RegisterScreen() {
         const { name } = response.data;
         localStorage.setItem("username", name);
         localStorage.setItem("email", email);
+
+        window.location.href = "/login";
       } else {
         alert("Error en el registro");
       }

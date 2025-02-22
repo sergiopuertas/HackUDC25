@@ -13,7 +13,7 @@ export default function DetailsScreen({
 }) {
   return (
     <motion.div
-      className="w-full h-[100dvh] bg-background absolute top-0 justify-end  flex-col flex overflow-scroll "
+      className="w-full h-[100dvh] bg-background absolute top-0 justify-start  flex-col flex overflow-scroll "
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0, transition: { duration: 0.2, delay: 0.1 } }}
       exit={{ opacity: 0, y: 40 }}

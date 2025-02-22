@@ -11,64 +11,24 @@ export default function JournalScreen({ hideBar }: { hideBar: Function }) {
   const [selectedEntry, setSelectedEntry] = useState<
     typeof JournalEntry | null
   >(null);
-  const journalEntries: (typeof JournalEntry)[] = [
-    {
-      date: "2025-02-20",
-      title: "Un gran día",
-      resume: "Resumen del día",
-      sentiment: "Sentimiento del día",
-      advice: "Consejo del día",
-      bulletPoints: ["Punto 1", "Punto 2", "Punto 3"],
-    },
-    {
-      date: "2025-02-18",
-      title: "Día relajado",
-      resume: "Solo descansé y vi algunas películas.",
-      sentiment: "",
-      advice: "",
-      bulletPoints: ["Punto 1", "Punto 2"],
-    },
-    {
-      date: "2023-02-15",
-      title: "Ideas nuevas",
-      resume: "Tuve una idea genial para un proyecto.",
-      sentiment: "",
-      advice: "",
-      bulletPoints: ["Punto 1", "Punto 2", "Punto 3", "Punto 4"],
-    },
-    {
-      date: "2024-02-10",
-      title: "Día de lluvia",
-      resume: "Hoy llovió todo el día, fue muy relajante.",
-      sentiment: "",
-      advice: "",
-      bulletPoints: ["Punto 1"],
-    },
-    {
-      date: "2021-09-10",
-      title: "Día de lluvia",
-      resume: "Hoy llovió todo el día, fue muy relajante.",
-      sentiment: "",
-      advice: "",
-      bulletPoints: ["Punto 1", "Punto 2"],
-    },
-    {
-      date: "2022-02-05",
-      title: "Día de campo",
-      resume: "Fui a un picnic con amigos, la pasé increíble.",
-      sentiment: "",
-      advice: "",
-      bulletPoints: ["Punto 1", "Punto 2", "Punto 3"],
-    },
-    {
-      date: "2022-02-01",
-      title: "Nuevo mes",
-      resume: "Comenzó un nuevo mes, espero que sea grandioso.",
-      sentiment: "",
-      advice: "",
-      bulletPoints: ["Punto 1", "Punto 2", "Punto 3", "Punto 4"],
-    },
-  ];
+
+  useEffect(() => {
+    const fetchJournalEntries = async () => {
+      try {
+        const response = await fetch("/api/conversations");
+        const data = await response.json();
+        setJournalEntries(data as (typeof JournalEntry)[]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchJournalEntries();
+  }, []);
+
+  const [journalEntries, setJournalEntries] = useState<(typeof JournalEntry)[]>(
+    []
+  );
 
   const filteredEntries = journalEntries.filter((entry) => {
     const entryDate = new Date(entry.date);
@@ -211,7 +171,10 @@ export default function JournalScreen({ hideBar }: { hideBar: Function }) {
         {selectedEntry !== null && (
           <DetailsScreen
             entry={selectedEntry}
-            close={() => setSelectedEntry(null)}
+            close={() => {
+              setSelectedEntry(null);
+              hideBar(false);
+            }}
           ></DetailsScreen>
         )}
       </AnimatePresence>

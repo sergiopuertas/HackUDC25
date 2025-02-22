@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { poppins } from "../fonts/fonts";
+import LoginChecker from "@/components/loginChecker";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +25,10 @@ export default function RootLayout({
         style={poppins.style}
         className={`dark antialiased overflow-hidden`}
       >
-        {children}
+        <>
+          <LoginChecker />
+          {children}
+        </>
       </body>
     </html>
   );

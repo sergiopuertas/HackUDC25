@@ -16,11 +16,8 @@
     "@radix-ui/react-slot": "^1.1.2",
     "@radix-ui/react-switch": "^1.1.1",
     "@splinetool/react-spline": "^4.0.0",
-<<<<<<< HEAD
-    "bcrypt": "^5.1.1",
-=======
     "axios": "^1.7.9",
->>>>>>> 30092e75ac4213566e495ef3690aaec690701b73
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
@@ -30,9 +27,11 @@
     "lucide-react": "^0.453.0",
     "mongoose": "^8.10.1",
     "next": "14.2.15",
+    "next-themes": "^0.4.4",
     "react": "^18",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
+    "sonner": "^2.0.1",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "typewriter-effect": "^2.21.0",

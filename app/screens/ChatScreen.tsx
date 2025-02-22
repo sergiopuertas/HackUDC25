@@ -172,9 +172,9 @@ export default function ChatScreen({
 
       {/* Call to Action */}
       <div className="space-y-2">
-        <p className="text-2xl text-center">Tienes algun problema?</p>
+        <p className="text-2xl text-center">Tienes algún problema?</p>
         <p className="text-4xl font-bold text-center">
-          Cuentaselo
+          Cuéntaselo
           <br /> a Cuca!
         </p>
       </div>

@@ -1,5 +1,5 @@
 // Importar mongoose
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const DaySchema = new mongoose.Schema({
     emotionFinal: { 

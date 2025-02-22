@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const User = require('../models/User');
+import User from '../models/User';
 
 // 📌 Crear un nuevo user (POST /users)
 router.post('/', async (req, res) => {

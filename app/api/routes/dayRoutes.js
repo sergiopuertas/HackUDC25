@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const Day = require('../models/Day');
+import Day  from '../models/Day';
 
 // 📌 Crear un nuevo board (POST /boards)
 router.post('/', async (req, res) => {
@@ -38,7 +38,7 @@ router.get('/:id', async (req, res) => {
 router.get('/user/:userId', async (req, res) => {
     try {
         const days = await Day.find({ userId: req.params.userId });
-        if (!conversations || conversations.length === 0) {
+        if (!days || days.length === 0) {
             return res.status(404).json({ error: 'No se encontraron conversaciones para este userId' });
         }
         res.json(conversations);

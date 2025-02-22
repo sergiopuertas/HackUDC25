@@ -1,5 +1,5 @@
 // Importar mongoose
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 // Definir el esquema del usuario
 const ConversationSchema = new mongoose.Schema({

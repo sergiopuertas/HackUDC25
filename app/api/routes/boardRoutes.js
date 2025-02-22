@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const Board = require('../models/Board');
+import Board from'../models/Board';
 
 // 📌 Crear un nuevo board (POST /boards)
 router.post('/', async (req, res) => {

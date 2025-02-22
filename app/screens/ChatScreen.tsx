@@ -14,6 +14,7 @@ export default function ChatScreen({
   const [typeText, setTypeText] = useState("");
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
+  const username = localStorage.getItem("username");
 
   const [conversation, setConversation] = useState<
     { type: string; message: string }[]
@@ -49,7 +50,7 @@ export default function ChatScreen({
 
       const response = await fetch(url, {
         method: "POST",
-        body: JSON.stringify({ text: message }),
+        body: JSON.stringify({ text: message + ".Me llamo " + { username } }),
       });
 
       const responseJson = await response.json();
@@ -85,7 +86,7 @@ export default function ChatScreen({
                 className=" flex flex-col text-black w-1/3"
               >
                 <p className="text-start">Buenos Dias!</p>
-                <p className="text-start text-4xl font-bold">Sergio</p>
+                <p className="text-start text-4xl font-bold">{username}</p>
               </motion.div>
             )}
           </AnimatePresence>

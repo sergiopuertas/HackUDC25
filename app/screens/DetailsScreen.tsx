@@ -14,9 +14,9 @@ export default function DetailsScreen({
   return (
     <motion.div
       className="w-full h-[100dvh] bg-background absolute top-0 justify-end  flex-col flex   "
-      initial={{ opacity: 0, y: 100 }}
+      initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0, transition: { duration: 0.2, delay: 0.1 } }}
-      exit={{ opacity: 0, y: 100 }}
+      exit={{ opacity: 0, y: 40 }}
     >
       <div className="flex justify-between p-5 items-center w-full ">
         <Image
@@ -57,7 +57,7 @@ export default function DetailsScreen({
 
       <motion.div
         className="w-full h-[70dvh] bg-primary rounded-t-[2rem] p-5 space-y-5 shadow-[0_-10px_20px_rgba(0,0,0,0.2)]"
-        initial={{ opacity: 0, y: 100 }}
+        initial={{ opacity: 0, y: 40 }}
         animate={{
           opacity: 1,
           y: 0,
@@ -66,7 +66,7 @@ export default function DetailsScreen({
       >
         <motion.div
           className="w-full  bg-chart-2   rounded-3xl flex flex-col "
-          initial={{ opacity: 0, y: 100 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{
             opacity: 1,
             y: 0,
@@ -86,7 +86,7 @@ export default function DetailsScreen({
         <div className="flex w-full space-x-5 ">
           <motion.div
             className="aspect-square w-full justify-between space-y-5 "
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{
               opacity: 1,
               y: 0,
@@ -102,7 +102,7 @@ export default function DetailsScreen({
           </motion.div>
           <motion.div
             className="w-full  bg-secondary   rounded-3xl flex flex-col p-5"
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{
               opacity: 1,
               y: 0,
@@ -119,7 +119,7 @@ export default function DetailsScreen({
 
         <motion.div
           className="w-full  flex flex-col space-y-5 "
-          initial={{ opacity: 0, y: 100 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{
             opacity: 1,
             y: 0,

@@ -22,6 +22,9 @@ const ConversationSchema = new mongoose.Schema({
     summary: { 
         type: String, 
         required: [true, "El resumen completo es obligatorio"] 
+    },
+    bulletpoints:{
+        type: [String]
     }
 });
 

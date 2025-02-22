@@ -1,5 +1,5 @@
 import { connectToDB } from "../../utils/database"; // Conectar a MongoDB
-import User from "@/models/User"; // Importar el modelo de usuario
+import User from "../../../models/User"; // Importar el modelo de Usuario
 // 📥 POST: Iniciar sesión
 export async function POST(req) {
   await connectToDB();

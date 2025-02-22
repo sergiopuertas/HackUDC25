@@ -1,4 +1,4 @@
-import User from "@/models/User"; // Importar el modelo corregido
+import User from "../../../models/User"; // Importar el modelo de usuario
 import { connectToDB } from "../../utils/database"; // Importar la función de conexión
 // 📥 GET: Obtener todos los usuarios
 export async function GET(req) {

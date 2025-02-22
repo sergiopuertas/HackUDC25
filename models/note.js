@@ -17,6 +17,5 @@ const Note = mongoose.model('Note', NoteSchema);
 
 
 // Exportar el modelo para usarlo en las rutas
-module.exports = Note;
 
-
+export default Note;

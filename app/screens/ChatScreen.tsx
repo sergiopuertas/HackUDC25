@@ -119,6 +119,15 @@ export default function ChatScreen({
           Cuentaselo
           <br /> a Cuca!
         </p>
+        {response && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="bg-white p-4 rounded-xl shadow-md text-center"
+          >
+            <p className="text-lg font-medium">{response}</p>
+          </motion.div>
+        )}
       </div>
     </div>
   );

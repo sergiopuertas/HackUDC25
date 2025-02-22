@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 const UserSchema = new mongoose.Schema({
     num:{
         type: Number,
-        required: [true, "el id es obligatorio"],
+        required: [true, "el num es obligatorio"],
         unique: true
     },
     name: { 
@@ -48,11 +48,12 @@ const UserSchema = new mongoose.Schema({
         min: [1, "El valor minimo es 1"],
         max: [100, "El valor máximo es 100"]
     },
-    problems: { 
-        type: [mongoose.Schema.Types.ObjectId],
-            ref: 'Problem', 
-        default: [] 
-    },
+
+        problems: [{ 
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Problem' 
+        }]
+        ,
     password: { 
         type: String, 
         required: [true, "La contraseña es obligatoria"],
@@ -61,10 +62,8 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Crear el modelo Usuario basado en el esquema
-const User = mongoose.model('User', UserSchema);
-
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
 // Exportar el modelo para usarlo en las rutas
-module.exports = User;
 
-
+export default User;

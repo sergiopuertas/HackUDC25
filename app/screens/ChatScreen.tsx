@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import SpeechBubble from "@/components/chat/SpeechBubble";
 import Cuca from "@/components/svg/cuca";
@@ -23,6 +23,20 @@ export default function ChatScreen({
     setConversation((prev) => [...prev, { type, message }]);
   };
 
+  const analyzeConversation = async () => {
+    try {
+      const url =
+        "https://magicloops.dev/api/loop/39f149f4-dc7e-4da8-bd7a-730ae135a221/run";
+
+      const response = await axios.post(url, { conversation: conversation });
+
+      console.log(response.data);
+      setConversation([]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleResponse = async (message: string) => {
     try {
       setLoading(true);
@@ -40,56 +54,99 @@ export default function ChatScreen({
       addToConversation(responseJson.response, "Cuca");
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
   return (
     <div className="w-full h-[100dvh] items-center justify-start flex flex-col space-y-8 overflow-hidden">
       <motion.div
-        initial={{ minHeight: "50dvh", height: "50dvh", opacity: 0 }}
+        initial={{ minHeight: "50dvh", height: "50dvh", opacity: 0, y: -50 }}
         animate={{
           minHeight: conversation.length == 0 ? "50dvh" : "88dvh",
           height: conversation.length == 0 ? "50dvh" : "88dvh",
           opacity: 1,
+          y: 0,
         }}
-        transition={{ type: "spring", stiffness: 120, duration: 0.5 }}
+        transition={{ duration: 0.2 }}
         className="flex flex-col items-center justify-start w-full transition-transform transform bg-chart-1 p-5 rounded-b-[2rem]"
       >
         {/* Header */}
-        <div className="flex px-10 w-screen justify-between items-center">
-          <Button
-            size={"icon"}
-            className={`bg-background rounded-full w-28 text-white p-8 transition-opacity duration-500${
-              conversation.length == 0 ? " opacity-0" : " opacity-100"
-            }`}
-            onClick={() => {
-              setTypeText("");
-              setInputText("");
-              setBarHidden(false);
-              setConversation([]);
-            }}
-          >
-            <ArrowLeft className="min-w-6 min-h-6 stroke-primary" />
-            <p>Atras</p>
-          </Button>
+        <div className="flex px-5 w-screen justify-between items-center ">
+          <AnimatePresence>
+            {conversation.length == 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -50 }}
+                className=" flex flex-col text-black w-1/3"
+              >
+                <p className="text-start">Buenos Dias!</p>
+                <p className="text-start text-4xl font-bold">Sergio</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {conversation.length > 0 && (
+              <motion.button
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0, transition: { delay: 1 } }}
+                exit={{ opacity: 0, y: -50 }}
+              >
+                <Button
+                  disabled={loading}
+                  size={"icon"}
+                  className={`bg-background rounded-full w-28 -mt-10 text-white p-8 transition-opacity duration-500${
+                    conversation.length == 0 ? " opacity-0" : " opacity-100"
+                  }`}
+                  onClick={() => {
+                    setTypeText("");
+                    setInputText("");
+                    setBarHidden(false);
+                    analyzeConversation();
+                  }}
+                >
+                  <ArrowLeft className="min-w-6 min-h-6 stroke-primary" />
+                  <p>Atras</p>
+                </Button>
+              </motion.button>
+            )}
+          </AnimatePresence>
+
           <Cuca
-            className={`w-24 h-24 fill-chart-2 stroke-chart-2 transition-transform ${
+            className={`w-28 h-28  fill-chart-2 stroke-chart-2 transition-transform ${
               conversation.length == 0 ? "" : "rotate-[-30deg]"
             } `}
           />
         </div>
 
         {/* Conversations */}
-        <div className="mt-10 w-full h-full items-start justify-start flex flex-col space-y-5 overflow-scroll fade-scroll">
+        <div
+          className=" w-full h-full flex flex-col space-y-5 overflow-y-auto fade-scroll"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%)",
+          }}
+        >
           {conversation.map((item, index) => (
-            <SpeechBubble key={index} text={item.message} who={item.type} />
+            <SpeechBubble
+              key={index}
+              text={item.message}
+              who={item.type}
+              isSpeaking={(speaking: boolean) => {
+                setLoading(speaking);
+              }}
+            />
           ))}
         </div>
       </motion.div>
 
       {/* Input Section */}
-      <div className="flex space-x-5 w-full px-5 ">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex space-x-5 w-full px-5 "
+      >
         <Input
           placeholder="Habla con Cuca"
           className="rounded-full bg-secondary z-10 h-14 w-full font-bold"
@@ -110,7 +167,7 @@ export default function ChatScreen({
         >
           <Send className="min-w-6 min-h-6" />
         </Button>
-      </div>
+      </motion.div>
 
       {/* Call to Action */}
       <div className="space-y-2">

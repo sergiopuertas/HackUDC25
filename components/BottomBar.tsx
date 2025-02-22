@@ -43,13 +43,13 @@ export default function BottomBar({
       className="flex justify-between items-center absolute bottom-10 w-[90%] p-1 rounded-full bg-primary shadow-lg"
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: hidden ? 100 : 0, opacity: hidden ? 0 : 1 }}
-      transition={{ duration: 0.3, ease: "easeInOut", delay: 0.5 }}
+      transition={{ duration: 0.3, ease: "easeInOut", delay: 0.1 }}
     >
       {/* Indicador dinámico con framer-motion */}
       <motion.div
         className="w-16 h-16 bg-secondary rounded-full absolute"
         animate={{ x: indicatorPosition - 35 }}
-        transition={{ type: "tween", duration: 0.2, ease: "easeInOut" }}
+        transition={{ type: "spring", duration: 0.4 }}
       />
 
       {/* Botones */}

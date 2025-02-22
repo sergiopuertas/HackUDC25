@@ -60,8 +60,8 @@ export default function ChatScreen({
         <div className="flex px-10 w-screen justify-between items-center">
           <Button
             size={"icon"}
-            className={`bg-background rounded-full w-28 text-white p-8 transition-opacity duration-500 opacity-${
-              conversation.length == 0 ? "0" : "100"
+            className={`bg-background rounded-full w-28 text-white p-8 transition-opacity duration-500${
+              conversation.length == 0 ? " opacity-0" : " opacity-100"
             }`}
             onClick={() => {
               setTypeText("");
@@ -75,7 +75,7 @@ export default function ChatScreen({
           </Button>
           <Cuca
             className={`w-24 h-24 fill-chart-2 stroke-chart-2 transition-transform ${
-              typeText === "" ? "" : "rotate-[-30deg]"
+              conversation.length == 0 ? "" : "rotate-[-30deg]"
             } `}
           />
         </div>
@@ -91,7 +91,7 @@ export default function ChatScreen({
       {/* Input Section */}
       <div className="flex space-x-5 w-full px-5 ">
         <Input
-          placeholder="Speak to Cuca"
+          placeholder="Habla con Cuca"
           className="rounded-full bg-secondary z-10 h-14 w-full font-bold"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}

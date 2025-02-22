@@ -1,11 +1,12 @@
 "use client";
-import { MessageCircle, Notebook, Puzzle } from "lucide-react";
+import { MessageCircle, Notebook, Puzzle, User } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import { ScreenType } from "@/types/types";
 
 interface BottomBarProps {
-  setScreen: (screen: string) => void;
-  screen: string;
+  setScreen: (screen: ScreenType) => void;
+  screen: "Journal" | "Chat" | "Join" | "Profile";
   hidden: boolean;
 }
 
@@ -14,7 +15,12 @@ export default function BottomBar({
   screen,
   hidden,
 }: BottomBarProps) {
-  const screens = ["Journal", "Chat", "Join"];
+  const screens: Array<"Journal" | "Chat" | "Join" | "Profile"> = [
+    "Journal",
+    "Chat",
+    "Join",
+    "Profile",
+  ];
   const screenIndex = screens.indexOf(screen);
   const containerRef = useRef<HTMLDivElement>(null);
   const [indicatorPosition, setIndicatorPosition] = useState(0);
@@ -69,6 +75,14 @@ export default function BottomBar({
           )}
           {item === "Join" && (
             <Puzzle
+              className={`min-w-6 min-h-6 transition-colors duration-300 ${
+                screen === item ? "stroke-primary" : "stroke-background"
+              }`}
+            />
+          )}
+
+          {item === "Profile" && (
+            <User
               className={`min-w-6 min-h-6 transition-colors duration-300 ${
                 screen === item ? "stroke-primary" : "stroke-background"
               }`}

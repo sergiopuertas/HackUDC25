@@ -14,7 +14,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body style={poppins.style} className={`dark antialiased`}>
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no"
+        />
+      </head>
+      <body
+        style={poppins.style}
+        className={`dark antialiased overflow-hidden`}
+      >
         {children}
       </body>
     </html>

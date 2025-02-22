@@ -10,32 +10,72 @@ import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import { code } from "@/fonts/fonts";
 import Cuca from "@/components/svg/cuca";
+import { ScreenType } from "@/types/types";
+import ProfileScreen from "./screens/Profile";
 export default function Page() {
-  const [screen, setScreen] = useState("Chat");
+  const [screen, setScreen] = useState<ScreenType>("Chat");
+  const [changeTo, setChangeTo] = useState<ScreenType[]>(["Chat", "Chat"]);
+  const [barHidden, setBarHidden] = useState(false);
+
+  const changeScreen = (screen: ScreenType) => {
+    setChangeTo([changeTo.at(1) ?? "Chat", screen]);
+    setTimeout(() => {
+      setScreen(screen);
+    }, 20);
+  };
 
   return (
-    <main className="flex flex-col items-center justify-start h-screen w-screen ">
+    <main className="flex flex-col items-center justify-start h-[100dvh] w-screen">
       <AnimatePresence>
         {screen === "Chat" && (
           <motion.div
-            className="w-screen h-screen absolute"
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -100 }}
-            transition={{ ease: "easeInOut", type: "tween", duration: 0.2 }}
+            className="w-screen h-[100dvh] absolute"
+            initial={{
+              x:
+                ScreenType[changeTo.at(0) ?? "Chat"].id > ScreenType["Chat"].id
+                  ? "-100%"
+                  : "100%",
+            }}
+            animate={{ x: 0 }}
+            exit={{
+              x:
+                ScreenType[changeTo.at(1) ?? "Chat"].id < ScreenType["Chat"].id
+                  ? "100%"
+                  : "-100%",
+            }}
+            transition={{
+              type: "tween",
+              duration: 0.2,
+              ease: [0.23, 1, 0.32, 1],
+            }}
           >
-            <ChatScreen />{" "}
+            <ChatScreen setBarHidden={setBarHidden} />
           </motion.div>
-        )}{" "}
+        )}
       </AnimatePresence>
 
       <AnimatePresence>
         {screen === "Join" && (
           <motion.div
-            className="w-screen h-screen absolute"
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -100 }}
+            className="w-screen h-[100dvh]  absolute"
+            initial={{
+              x:
+                ScreenType[changeTo.at(0) ?? "Chat"].id > ScreenType["Join"].id
+                  ? "-100%"
+                  : "100%",
+            }}
+            animate={{ x: 0 }}
+            exit={{
+              x:
+                ScreenType[changeTo.at(1) ?? "Chat"].id < ScreenType["Join"].id
+                  ? "100%"
+                  : "-100%",
+            }}
+            transition={{
+              type: "tween",
+              duration: 0.2,
+              ease: [0.23, 1, 0.32, 1],
+            }}
           >
             <JoinScreen />
           </motion.div>
@@ -44,18 +84,64 @@ export default function Page() {
       <AnimatePresence>
         {screen === "Journal" && (
           <motion.div
-            className="w-screen h-screen absolute"
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ ease: "easeInOut", type: "tween" }}
+            className="w-screen h-[100dvh]  absolute"
+            initial={{
+              x:
+                ScreenType[changeTo.at(0) ?? "Chat"].id >
+                ScreenType["Journal"].id
+                  ? "-100%"
+                  : "100%",
+            }}
+            animate={{ x: 0 }}
+            exit={{
+              x:
+                ScreenType[changeTo.at(1) ?? "Chat"].id <
+                ScreenType["Journal"].id
+                  ? "100%"
+                  : "-100%",
+            }}
+            transition={{
+              type: "tween",
+              duration: 0.2,
+              ease: [0.23, 1, 0.32, 1],
+            }}
           >
             <JournalScreen />
           </motion.div>
         )}
       </AnimatePresence>
 
-      <BottomBar screen={screen} setScreen={setScreen} />
+      <AnimatePresence>
+        {screen === "Profile" && (
+          <motion.div
+            className="w-screen h-[100dvh]  absolute"
+            initial={{
+              x:
+                ScreenType[changeTo.at(0) ?? "Chat"].id >
+                ScreenType["Profile"].id
+                  ? "-100%"
+                  : "100%",
+            }}
+            animate={{ x: 0 }}
+            exit={{
+              x:
+                ScreenType[changeTo.at(1) ?? "Chat"].id <
+                ScreenType["Profile"].id
+                  ? "100%"
+                  : "-100%",
+            }}
+            transition={{
+              type: "tween",
+              duration: 0.2,
+              ease: [0.23, 1, 0.32, 1],
+            }}
+          >
+            <ProfileScreen />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <BottomBar screen={screen} setScreen={changeScreen} hidden={barHidden} />
     </main>
   );
 }

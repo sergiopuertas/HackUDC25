@@ -49,8 +49,10 @@ const UserSchema = new mongoose.Schema({
         max: [100, "El valor máximo es 100"]
     },
     problems: { 
-        type: [mongoose.Schema.Types.ObjectId],
-            ref: 'Problem', 
+        problems: [{ 
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Problem' 
+        }], 
         default: [] 
     },
     password: { 
@@ -61,10 +63,8 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Crear el modelo Usuario basado en el esquema
-const User = mongoose.model('User', UserSchema);
-
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
 // Exportar el modelo para usarlo en las rutas
-module.exports = User;
 
-
+export default User;

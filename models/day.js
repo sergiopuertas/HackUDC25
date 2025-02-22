@@ -28,4 +28,4 @@ const Day = mongoose.model('Day', DaySchema);
 // Exportar el modelo para usarlo en las rutas
 module.exports = Day;
 
-
+export default Day;

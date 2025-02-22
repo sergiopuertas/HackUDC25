@@ -25,4 +25,6 @@ const Board = mongoose.model('Board', BoardSchema);
 // Exportar el modelo para usarlo en las rutas
 module.exports = Board;
 
+export default Board;
+
 

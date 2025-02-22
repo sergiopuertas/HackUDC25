@@ -24,6 +24,7 @@ export default function LoginScreen() {
         setIsLoggedIn(true);
         const { name } = response.data;
         localStorage.setItem("username", name);
+        localStorage.setItem("email", email);
         window.location.href = "/main";
       } else {
         alert("Error en la autenticación");

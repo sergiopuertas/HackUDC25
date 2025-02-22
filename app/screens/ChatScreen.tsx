@@ -14,7 +14,6 @@ export default function ChatScreen({
   const [typeText, setTypeText] = useState("");
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
-  const username = localStorage.getItem("username");
 
   const [conversation, setConversation] = useState<
     { type: string; message: string }[]
@@ -32,10 +31,10 @@ export default function ChatScreen({
       const response = await axios.post(url, { conversation: conversation });
 
       console.log(response.data);
-      const url2 = 
-      "https://magicloops.dev/api/loop/39f149f4-dc7e-4da8-bd7a-730ae135a221/run";
+      const url2 =
+        "https://magicloops.dev/api/loop/39f149f4-dc7e-4da8-bd7a-730ae135a221/run";
       const response2 = await axios.post(url2, response.data);
-      await axios.post("/conversations",response2)
+      await axios.post("/conversations", response2);
       setConversation([]);
     } catch (error) {
       console.error(error);
@@ -48,13 +47,14 @@ export default function ChatScreen({
       const url =
         "https://magicloops.dev/api/loop/b3456033-5397-4097-9145-a6a7a9176f9a/run";
 
+      const username = localStorage.getItem("username");
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({ text: message + ".Me llamo " + { username } }),
       });
 
       const responseJson = await response.json();
-      
+
       console.log(responseJson);
 
       addToConversation(responseJson.response, "Cuca");
@@ -86,7 +86,9 @@ export default function ChatScreen({
                 className=" flex flex-col text-black w-1/3"
               >
                 <p className="text-start">Buenos Dias!</p>
-                <p className="text-start text-4xl font-bold">{username}</p>
+                <p className="text-start text-4xl font-bold">
+                  {localStorage.getItem("username")}
+                </p>
               </motion.div>
             )}
           </AnimatePresence>

@@ -26,6 +26,7 @@ export default function RegisterScreen() {
         setIsRegistered(true);
         const { name } = response.data;
         localStorage.setItem("username", name);
+        localStorage.setItem("email", email);
       } else {
         alert("Error en el registro");
       }

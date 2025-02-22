@@ -16,10 +16,9 @@ export default function JournalScreen({ hideBar }: { hideBar: Function }) {
   useEffect(() => {
     const fetchJournalEntries = async () => {
       try {
-        const response = await axios.get("/api/conversations/", {
+        const response = await axios.get("/api/conversations", {
           params: {
-            year: selectedYear,
-            month: selectedMonth,
+            email: localStorage.getItem("email"),
           },
         });
         const data = response.data;

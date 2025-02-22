@@ -31,10 +31,15 @@ export default function ChatScreen({
 
   const analyzeConversation = async () => {
     try {
+      const copyConversation = new Array(...conversation);
+      setConversation([]);
       const url =
         "https://magicloops.dev/api/loop/39f149f4-dc7e-4da8-bd7a-730ae135a221/run";
 
-      const response = await axios.post(url, { conversation: conversation });
+      const response = await axios.post(url, {
+        conversation: copyConversation,
+      });
+
       const adaptedResponse = {
         summary: response.data.resumen,
         emotion: response.data.sentiment,
@@ -44,7 +49,6 @@ export default function ChatScreen({
         user: localStorage.getItem("username"),
       };
       await axios.post("/api/conversations", adaptedResponse);
-      setConversation([]);
     } catch (error) {
       console.error(error);
     }

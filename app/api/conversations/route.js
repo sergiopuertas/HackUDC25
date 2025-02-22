@@ -22,9 +22,9 @@ export async function GET(req) {
   try {
     await connectToDB();
     const { searchParams } = new URL(req.url);
-    const mail = searchParams.get("mail");
+    const email = searchParams.get("email");
 
-    const conversations = await Conversation.find({ mail });
+    const conversations = await Conversation.find({ email });
 
     return new Response(JSON.stringify(conversations), { status: 200 });
   } catch (error) {

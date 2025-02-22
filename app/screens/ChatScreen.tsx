@@ -46,7 +46,7 @@ export default function ChatScreen({
         bulletpoints: response.data.bulletpoints,
         title: response.data.title,
         advice: response.data.advice,
-        user: localStorage.getItem("username"),
+        email: localStorage.getItem("email"),
       };
       await axios.post("/api/conversations", adaptedResponse);
     } catch (error) {
@@ -88,7 +88,7 @@ export default function ChatScreen({
         className="flex flex-col items-center justify-start w-full transition-transform transform bg-chart-1 p-5 rounded-b-[2rem]"
       >
         {/* Header */}
-        <div className="flex px-5 w-screen justify-between items-center ">
+        <div className="flex px-10 w-screen justify-between items-center ">
           <AnimatePresence>
             {conversation.length == 0 && (
               <motion.div
@@ -131,21 +131,35 @@ export default function ChatScreen({
             )}
           </AnimatePresence>
 
-          <Cuca
-            className={`w-28 h-28  fill-chart-2 stroke-chart-2 transition-transform ${
-              conversation.length == 0 ? "" : "rotate-[-30deg]"
-            } `}
-          />
+          <motion.div
+            whileHover={{ scale: 0.4 }}
+            whileTap={{ scale: 1.2 }}
+            animate={{ rotate: [0, 10, -10, 10, -10, 0] }}
+            transition={{ duration: 0.5 }}
+            className="z-20"
+          >
+            <Cuca
+              className={`w-28 h-28 -mr-2 fill-chart-2 stroke-chart-2 transition-transform ${
+                conversation.length == 0 ? "" : "rotate-[-30deg]"
+              } `}
+            />
+          </motion.div>
+          <div className="w-28 h-28 bg-chart-2/40 rounded-full absolute right-5 top-10" />
         </div>
 
         {/* Conversations */}
         <div
-          className=" w-full h-full flex flex-col space-y-5 overflow-y-auto fade-scroll"
+          className="w-full h-full flex flex-col space-y-5 overflow-y-auto fade-scroll"
           style={{
             maskImage:
               "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%)",
             WebkitMaskImage:
               "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%)",
+          }}
+          ref={(el) => {
+            if (el) {
+              el.scrollTop = el.scrollHeight;
+            }
           }}
         >
           {conversation.map((item, index) => (
@@ -172,6 +186,16 @@ export default function ChatScreen({
           className="rounded-full bg-secondary z-10 h-14 w-full font-bold"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              if (inputText === "") return;
+              setLoading(true);
+              setBarHidden(true);
+              addToConversation(inputText, "Tu");
+              handleResponse(inputText);
+              setInputText("");
+            }
+          }}
         />
         <Button
           size={"icon"}
@@ -191,12 +215,12 @@ export default function ChatScreen({
       </motion.div>
 
       {/* Call to Action */}
-      <div className="space-y-2">
-        <p className="text-2xl text-center">Tienes algún problema?</p>
+      <div className="space-y-2 flex flex-col items-center justify-center">
         <p className="text-4xl font-bold text-center">
           Cuéntaselo
           <br /> a Cuca!
         </p>
+        <p className="text-2xl text-center">Tienes algún problema?</p>
       </div>
     </div>
   );

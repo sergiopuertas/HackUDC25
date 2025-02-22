@@ -8,7 +8,7 @@ const ConversationSchema = new mongoose.Schema({
     default: Date.now,
     get: (val) => val.toLocaleDateString("es-ES"),
   },
-  user: {
+  email: {
     type: String,
     required: [true, "El id del usuario es obligatorio"],
   },

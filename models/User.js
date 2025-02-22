@@ -3,6 +3,10 @@ import mongoose from "mongoose";
 
 // Definir el esquema del usuario
 const UserSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    default: () => new mongoose.Types.ObjectId(),
+  },
   name: {
     type: String,
     required: [true, "El nombre es obligatorio"],
@@ -46,12 +50,6 @@ const UserSchema = new mongoose.Schema({
     max: [100, "El valor máximo es 100"],
   },
 
-  problems: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Problem",
-    },
-  ],
   password: {
     type: String,
     required: [true, "La contraseña es obligatoria"],

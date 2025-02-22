@@ -26,11 +26,15 @@ export default function ChatScreen({
   const analyzeConversation = async () => {
     try {
       const url =
-        "https://magicloops.dev/api/loop/39f149f4-dc7e-4da8-bd7a-730ae135a221/run";
+        "https://magicloops.dev/api/loop/53986829-7ffa-40b4-8995-7a57fd454545/run";
 
       const response = await axios.post(url, { conversation: conversation });
 
       console.log(response.data);
+      const url2 = 
+      "https://magicloops.dev/api/loop/39f149f4-dc7e-4da8-bd7a-730ae135a221/run";
+      const response2 = await axios.post(url2, response.data);
+      await axios.post("/conversations",response2)
       setConversation([]);
     } catch (error) {
       console.error(error);
@@ -49,6 +53,7 @@ export default function ChatScreen({
       });
 
       const responseJson = await response.json();
+      
       console.log(responseJson);
 
       addToConversation(responseJson.response, "Cuca");

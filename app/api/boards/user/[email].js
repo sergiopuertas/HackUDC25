@@ -8,13 +8,13 @@ export async function GET(req) {
         console.log("🟢 Conectado a la BD");
 
         const { searchParams } = new URL(req.url);
-        const userId = searchParams.get('userId'); // Obtener el userId desde la URL
+        const userId = searchParams.get('email'); // Obtener el userId desde la URL
 
         if (!userId) {
-            return new Response(JSON.stringify({ error: 'userId no proporcionado' }), { status: 400 });
+            return new Response(JSON.stringify({ error: 'email no proporcionado' }), { status: 400 });
         }
 
-        const boards = await Board.find({ userId });
+        const boards = await Board.find({ email });
 
         if (!boards || boards.length === 0) {
             return new Response(JSON.stringify({ error: 'No se encontraron boards para este userId' }), { status: 404 });

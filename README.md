@@ -8,6 +8,12 @@ A continuación, encontrarás toda la información necesaria para empezar a usar
 ## 📖 Descripción general 📖
 
 Este proyecto ha sido creado utilizando Next.js y bootstrapped con create-next-app. Se basa en un enfoque modular, con rutas en la carpeta app/ y componentes en components/. Además, incorpora Tailwind CSS para el estilizado y, opcionalmente, una integración con bases de datos o servicios de terceros para procesar y almacenar la información relevante de las conversaciones.
+<p align="center">
+  <img src="https://github.com/sergiopuertas/HackUDC25/blob/main/mockups/iPhone%2015%20Mockup%2C%20Perspective.png" alt="Texto alternativo" width="300">
+  <img src="https://github.com/sergiopuertas/HackUDC25/blob/main/mockups/iPhone%2015%20Pro%20Mockup%2C%20Front%20and%20Back%20View.png" alt="Texto alternativo" width="300">
+</p>
+
+
 
 ## ⚠️ Requisitos previos ⚠️
 

@@ -7,14 +7,21 @@ const ConversationSchema = new mongoose.Schema({
         type: Date, 
         default: Date.now
     },
-    messages: { 
-        type: [mongoose.Schema.Types.ObjectId],
-                    ref: 'Message', 
-        default: [] 
-    },
     userId:{
         type: Number,
         required : [true, "El id del usuario es obligatorio"]
+    },
+    advice: { 
+        type: String, 
+        required: [true, "El consejo completo es obligatorio"] 
+    },
+    emotion: { 
+        type: String, 
+        required: [true, "La emoción completo es obligatorio"] 
+    },
+    summary: { 
+        type: String, 
+        required: [true, "El resumen completo es obligatorio"] 
     }
 });
 

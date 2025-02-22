@@ -16,7 +16,11 @@
     "@radix-ui/react-slot": "^1.1.2",
     "@radix-ui/react-switch": "^1.1.1",
     "@splinetool/react-spline": "^4.0.0",
+<<<<<<< HEAD
+    "bcrypt": "^5.1.1",
+=======
     "axios": "^1.7.9",
+>>>>>>> 30092e75ac4213566e495ef3690aaec690701b73
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
@@ -32,6 +36,7 @@
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "typewriter-effect": "^2.21.0",
+    "up-the-mountain": "file:",
     "vaul": "^1.1.0"
   },
   "devDependencies": {

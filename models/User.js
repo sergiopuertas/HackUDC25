@@ -64,6 +64,5 @@ const UserSchema = new mongoose.Schema({
 // Crear el modelo Usuario basado en el esquema
 const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
-// Exportar el modelo para usarlo en las rutas
 
 export default User;

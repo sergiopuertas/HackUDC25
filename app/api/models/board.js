@@ -10,6 +10,10 @@ const BoardSchema = new mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
                     ref: 'Problem',
         default: [] 
+    },
+    userId: {
+        typer:Number,
+        required:[true, "El usuario es necesario"]
     }
 });
 

@@ -14,6 +14,10 @@ const DaySchema = new mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
                             ref: 'Note', 
                 default: []
+    },
+    userId:{
+        type: Number,
+        required : [true, "El id del usuario es obligatorio"]
     }
 });
 

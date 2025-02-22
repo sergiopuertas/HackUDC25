@@ -1,5 +1,5 @@
 import Conversation from '@/models/Conversation';
-import { connectToDB } from '@/utils/database';
+import { connectToDB } from '../../utils/database';
 
 // 📥 Obtener conversaciones por userId (GET /api/conversations/user/:userId)
 export async function GET(req, { params }) {

@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "app/api/boards/route.js", "app/utils/database.js", "app/utils/database.js"  ],
   "exclude": [
     "node_modules"
   ]

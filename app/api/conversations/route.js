@@ -1,5 +1,5 @@
 import Conversation from '@/models/Conversation';
-import { connectToDB } from '@/utils/database';
+import { connectToDB } from '../../utils/database';
 
 // 📌 Crear una nueva conversación (POST /api/conversations)
 export async function POST(req) {

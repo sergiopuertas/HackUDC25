@@ -1,5 +1,5 @@
 import Day from '@/models/Day';
-import { connectToDB } from '@/utils/database';
+import { connectToDB } from '../../utils/database';
 
 // 📥 Obtener días por userId (GET /api/days/user/:userId)
 export async function GET(req, { params }) {

@@ -7,10 +7,10 @@ export async function GET(req) {
         await connectToDB(); 
         console.log("🟢 Conectado a la BD");
 
-        const boards = await Board.find().populate('problems');
-        console.log("🟢 Boards encontrados:", users);
+        const boards = await Board.find();
+        console.log("🟢 Boards encontrados:", boards);
 
-        return new Response(JSON.stringify(users), { status: 200 });
+        return new Response(JSON.stringify(boards), { status: 200 });
     } catch (error) {
         console.error("❌ Error en GET:", error);
         return new Response(JSON.stringify({ error: 'Error al obtener los usuarios' }), { status: 500 });

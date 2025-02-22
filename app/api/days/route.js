@@ -1,5 +1,5 @@
 import Day from '@/models/Day';
-import { connectToDB } from '@/utils/database';
+import { connectToDB } from '../../utils/database';
 
 // 📌 Crear un nuevo día (POST /api/days)
 export async function POST(req) {

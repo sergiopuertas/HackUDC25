@@ -23,6 +23,5 @@ const Conversation = mongoose.model('Conversation', ConversationSchema);
 
 
 // Exportar el modelo para usarlo en las rutas
-module.exports = Conversation;
 
 export default Conversation;

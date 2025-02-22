@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 const UserSchema = new mongoose.Schema({
     num:{
         type: Number,
-        required: [true, "el id es obligatorio"],
+        required: [true, "el num es obligatorio"],
         unique: true
     },
     name: { 
@@ -48,13 +48,12 @@ const UserSchema = new mongoose.Schema({
         min: [1, "El valor minimo es 1"],
         max: [100, "El valor máximo es 100"]
     },
-    problems: { 
+
         problems: [{ 
             type: mongoose.Schema.Types.ObjectId, 
             ref: 'Problem' 
-        }], 
-        default: [] 
-    },
+        }]
+        ,
     password: { 
         type: String, 
         required: [true, "La contraseña es obligatoria"],

@@ -15,7 +15,6 @@ const MessageSchema = new mongoose.Schema({
 const Message = mongoose.model('Message', MessageSchema);
 
 // Exportar el modelo para usarlo en las rutas
-module.exports = Message;
 
 
 export default Message;

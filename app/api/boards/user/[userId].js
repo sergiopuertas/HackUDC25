@@ -1,5 +1,5 @@
 import Board from '@/models/Board'; // Importar el modelo Board
-import { connectToDB } from '@/utils/database'; // Conectar a MongoDB
+import { connectToDB } from '../../utils/database'; // Conectar a MongoDB
 
 // 📥 GET: Obtener Boards por userId
 export async function GET(req) {

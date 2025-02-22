@@ -106,7 +106,7 @@ export default function Page() {
               ease: [0.23, 1, 0.32, 1],
             }}
           >
-            <JournalScreen />
+            <JournalScreen hideBar={setBarHidden} />
           </motion.div>
         )}
       </AnimatePresence>

@@ -5,15 +5,17 @@ import Typewriter from "typewriter-effect";
 export default function SpeechBubble({
   text,
   who,
+  isSpeaking,
 }: {
   text: string;
   who: string;
+  isSpeaking: Function;
 }) {
   const [completed, setCompleted] = useState(false);
 
   return (
     <div
-      className={`flex flex-col w-full  ${
+      className={`flex flex-col w-full mt-36  ${
         who === "Tu" ? "items-start    " : "items-end"
       } `}
     >
@@ -32,6 +34,7 @@ export default function SpeechBubble({
                   .typeString(text)
                   .callFunction(() => {
                     setCompleted(true);
+                    isSpeaking(false);
                   })
 
                   .start();

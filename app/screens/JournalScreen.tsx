@@ -1,47 +1,72 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-export default function JournalScreen() {
+import { Feather } from "lucide-react";
+import DetailsScreen from "./DetailsScreen";
+import { JournalEntry } from "@/types/types";
+export default function JournalScreen({ hideBar }: { hideBar: Function }) {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
   const [showEntries, setShowEntries] = useState(true);
-
-  const journalEntries = [
+  const [selectedEntry, setSelectedEntry] = useState<
+    typeof JournalEntry | null
+  >(null);
+  const journalEntries: (typeof JournalEntry)[] = [
     {
       date: "2025-02-20",
       title: "Un gran día",
-      content: "Hoy fue increíble, logré muchas cosas.",
+      resume: "Resumen del día",
+      sentiment: "Sentimiento del día",
+      advice: "Consejo del día",
+      bulletPoints: ["Punto 1", "Punto 2", "Punto 3"],
     },
     {
       date: "2025-02-18",
       title: "Día relajado",
-      content: "Solo descansé y vi algunas películas.",
+      resume: "Solo descansé y vi algunas películas.",
+      sentiment: "",
+      advice: "",
+      bulletPoints: ["Punto 1", "Punto 2"],
     },
     {
       date: "2023-02-15",
       title: "Ideas nuevas",
-      content: "Tuve una idea genial para un proyecto.",
+      resume: "Tuve una idea genial para un proyecto.",
+      sentiment: "",
+      advice: "",
+      bulletPoints: ["Punto 1", "Punto 2", "Punto 3", "Punto 4"],
     },
     {
       date: "2024-02-10",
       title: "Día de lluvia",
-      content: "Hoy llovió todo el día, fue muy relajante.",
+      resume: "Hoy llovió todo el día, fue muy relajante.",
+      sentiment: "",
+      advice: "",
+      bulletPoints: ["Punto 1"],
     },
     {
       date: "2021-09-10",
       title: "Día de lluvia",
-      content: "Hoy llovió todo el día, fue muy relajante.",
+      resume: "Hoy llovió todo el día, fue muy relajante.",
+      sentiment: "",
+      advice: "",
+      bulletPoints: ["Punto 1", "Punto 2"],
     },
     {
       date: "2022-02-05",
       title: "Día de campo",
-      content: "Fui a un picnic con amigos, la pasé increíble.",
+      resume: "Fui a un picnic con amigos, la pasé increíble.",
+      sentiment: "",
+      advice: "",
+      bulletPoints: ["Punto 1", "Punto 2", "Punto 3"],
     },
     {
       date: "2022-02-01",
       title: "Nuevo mes",
-      content: "Comenzó un nuevo mes, espero que sea grandioso.",
+      resume: "Comenzó un nuevo mes, espero que sea grandioso.",
+      sentiment: "",
+      advice: "",
+      bulletPoints: ["Punto 1", "Punto 2", "Punto 3", "Punto 4"],
     },
   ];
 
@@ -68,12 +93,12 @@ export default function JournalScreen() {
   return (
     <div className="overflow-x-hidden overflow-y-scroll h-[100dvh] w-screen">
       <div className="p-5 space-y-5">
-        <div className="w-full flex flex-col">
-          <p className="text-start">Buenos Dias!</p>
-          <p className="text-start text-3xl font-bold">Sergio</p>
+        <div className="w-full flex justify-between ">
+          <p className="text-start font-bold text-3xl">Journal</p>
+          <Feather size={32} />
         </div>
         <motion.div
-          className="flex justify-between w-full rounded-3xl bg-secondary p-5"
+          className="flex justify-between w-full rounded-3xl bg-chart-1 text-black p-5"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
         >
@@ -82,7 +107,7 @@ export default function JournalScreen() {
             <p className="font-black text-5xl">Feliz</p>
             <p className="text-sm">Sigue asi y tendras un gran dia!</p>
           </div>
-          <p>{new Date().toLocaleDateString()}</p>
+          <p className="text-chart-2">{new Date().toLocaleDateString()}</p>
         </motion.div>
       </div>
       <div className="flex space-x-5 overflow-scroll w-screen">
@@ -99,7 +124,7 @@ export default function JournalScreen() {
           ).map(([year, count], index) => (
             <motion.div
               key={index}
-              className={`bg-secondary rounded-xl p-5 ml-5 min-w-40 ${
+              className={`bg-secondary rounded-xl p-5 ml-5 min-w-40 overflow-hidden ${
                 selectedYear === Number(year) ? "bg-yellow-500" : ""
               }`}
               initial={{ opacity: 0, y: 50 }}
@@ -113,10 +138,14 @@ export default function JournalScreen() {
                 )
               }
             >
+              <p className="absolute font-black  text-9xl text-black/60 -z-10 -top-2 text-center -right-5 ">
+                {year.toString().slice(2, 4)}
+              </p>
               <p className="font-bold text-3xl">{year}</p>
               <p>{count} entradas</p>
             </motion.div>
           ))}
+          <div className="w-20"></div>
         </AnimatePresence>
       </div>
       <div className="flex space-x-5 overflow-scroll w-screen mt-5">
@@ -159,6 +188,10 @@ export default function JournalScreen() {
           {showEntries &&
             filteredEntries.map((entry, index) => (
               <motion.div
+                onClick={() => {
+                  setSelectedEntry(entry);
+                  hideBar(true);
+                }}
                 key={index}
                 className="bg-secondary rounded-xl p-5 mt-5"
                 initial={{ opacity: 0, y: 50 }}
@@ -168,11 +201,20 @@ export default function JournalScreen() {
               >
                 <p className="font-bold text-xl">{entry.title}</p>
                 <p className="text-sm">{entry.date}</p>
-                <p>{entry.content}</p>
+                <p>{entry.resume}</p>
               </motion.div>
             ))}
         </AnimatePresence>
       </div>
+
+      <AnimatePresence>
+        {selectedEntry !== null && (
+          <DetailsScreen
+            entry={selectedEntry}
+            close={() => setSelectedEntry(null)}
+          ></DetailsScreen>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

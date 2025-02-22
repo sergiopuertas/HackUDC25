@@ -6,3 +6,12 @@ export const ScreenType = {
 };
 
 export type ScreenType = keyof typeof ScreenType;
+
+export const JournalEntry = {
+  title: "",
+  date: new Date().toLocaleDateString(),
+  resume: "",
+  sentiment: "",
+  advice: "",
+  bulletPoints: [] as string[],
+};

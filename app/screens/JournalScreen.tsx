@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Feather } from "lucide-react";
 import DetailsScreen from "./DetailsScreen";
 import { JournalEntry } from "@/types/types";
+import axios from "axios";
 export default function JournalScreen({ hideBar }: { hideBar: Function }) {
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
@@ -15,8 +16,13 @@ export default function JournalScreen({ hideBar }: { hideBar: Function }) {
   useEffect(() => {
     const fetchJournalEntries = async () => {
       try {
-        const response = await fetch("/api/conversations");
-        const data = await response.json();
+        const response = await axios.get("/api/conversations/", {
+          params: {
+            year: selectedYear,
+            month: selectedMonth,
+          },
+        });
+        const data = response.data;
         setJournalEntries(data as (typeof JournalEntry)[]);
       } catch (error) {
         console.error(error);

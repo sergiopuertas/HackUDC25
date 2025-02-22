@@ -1,5 +1,6 @@
+"use client";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import SpeechBubble from "@/components/chat/SpeechBubble";
 import Cuca from "@/components/svg/cuca";
 import { Button } from "@/components/ui/button";
@@ -14,10 +15,15 @@ export default function ChatScreen({
   const [typeText, setTypeText] = useState("");
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [username, setUsername] = useState("");
   const [conversation, setConversation] = useState<
     { type: string; message: string }[]
   >([]);
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    setUsername(storedUsername ? storedUsername : "");
+  }, []);
 
   const addToConversation = (message: string, type: string) => {
     setConversation((prev) => [...prev, { type, message }]);
@@ -26,15 +32,18 @@ export default function ChatScreen({
   const analyzeConversation = async () => {
     try {
       const url =
-        "https://magicloops.dev/api/loop/53986829-7ffa-40b4-8995-7a57fd454545/run";
+        "https://magicloops.dev/api/loop/39f149f4-dc7e-4da8-bd7a-730ae135a221/run";
 
       const response = await axios.post(url, { conversation: conversation });
-
-      console.log(response.data);
-      const url2 =
-        "https://magicloops.dev/api/loop/39f149f4-dc7e-4da8-bd7a-730ae135a221/run";
-      const response2 = await axios.post(url2, response.data);
-      await axios.post("/conversations", response2);
+      const adaptedResponse = {
+        summary: response.data.resumen,
+        emotion: response.data.sentiment,
+        bulletpoints: response.data.bulletpoints,
+        title: response.data.title,
+        advice: response.data.advice,
+        user: localStorage.getItem("username"),
+      };
+      await axios.post("/api/conversations", adaptedResponse);
       setConversation([]);
     } catch (error) {
       console.error(error);
@@ -43,7 +52,6 @@ export default function ChatScreen({
 
   const handleResponse = async (message: string) => {
     try {
-      setLoading(true);
       const url =
         "https://magicloops.dev/api/loop/b3456033-5397-4097-9145-a6a7a9176f9a/run";
 
@@ -87,7 +95,7 @@ export default function ChatScreen({
               >
                 <p className="text-start">Buenos Dias!</p>
                 <p className="text-start text-4xl font-bold">
-                  {localStorage.getItem("username")}
+                  {username ? username : "Usuario"}
                 </p>
               </motion.div>
             )}
@@ -167,6 +175,7 @@ export default function ChatScreen({
           disabled={inputText === "" && !loading}
           onClick={() => {
             if (inputText === "") return;
+            setLoading(true);
             setBarHidden(true);
             addToConversation(inputText, "Tu");
             handleResponse(inputText);

@@ -13,18 +13,18 @@ export default function DetailsScreen({
 }) {
   return (
     <motion.div
-      className="w-full h-[100dvh] bg-background absolute top-0 justify-end  flex-col flex   "
+      className="w-full h-[100dvh] bg-background absolute top-0 justify-end  flex-col flex overflow-scroll "
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0, transition: { duration: 0.2, delay: 0.1 } }}
       exit={{ opacity: 0, y: 40 }}
     >
-      <div className="flex justify-between p-5 items-center w-full ">
+      <div className="flex justify-between p-5 items-center w-full  ">
         <Image
           src="/bg-1.png"
           alt="BG"
           fill
           style={{ objectFit: "cover" }}
-          className="overflow-hidden -z-10"
+          className=" -z-10"
         ></Image>
         <motion.button
           initial={{ opacity: 0, y: -50 }}
@@ -47,16 +47,16 @@ export default function DetailsScreen({
           </Button>
         </motion.button>
 
-        <p className="text-3xl font-bold text-black">{entry.title}</p>
+        <p className="text-3xl font-bold text-black text-end">{entry.title}</p>
       </div>
       <div className="w-full p-5 flex flex-col flex-1 justify-end   ">
         <p className="italic text-right w-full  text-xl self-start">
-          {entry.date}
+          {new Date(entry.date).toLocaleDateString()}
         </p>
       </div>
 
       <motion.div
-        className="w-full h-[70dvh] bg-primary rounded-t-[2rem] p-5 space-y-5 shadow-[0_-10px_20px_rgba(0,0,0,0.2)]"
+        className="w-full bg-primary h-full	 rounded-t-[2rem] p-5 space-y-5 shadow-[0_-10px_20px_rgba(0,0,0,0.2)]"
         initial={{ opacity: 0, y: 40 }}
         animate={{
           opacity: 1,
@@ -97,7 +97,7 @@ export default function DetailsScreen({
               Emocion mas Frecuente
             </p>
             <p className="w-full  text-xl bg-secondary   rounded-full flex flex-col text-center p-5">
-              Ira
+              {entry.emotion}
             </p>
           </motion.div>
           <motion.div
@@ -110,7 +110,7 @@ export default function DetailsScreen({
             }}
           >
             <ul className="list-disc p-5 space-y-2 text-center">
-              {entry.bulletPoints.slice(0, 3).map((point, index) => (
+              {entry.bulletpoints.slice(0, 2).map((point, index) => (
                 <li key={index}>{point}</li>
               ))}
             </ul>
@@ -132,7 +132,7 @@ export default function DetailsScreen({
           </p>
           <p className="text-start align-top text-black text-lg">
             {" "}
-            {entry.resume}
+            {entry.summary}
           </p>
         </motion.div>
       </motion.div>

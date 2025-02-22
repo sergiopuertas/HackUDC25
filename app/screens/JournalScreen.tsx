@@ -67,10 +67,43 @@ export default function JournalScreen({ hideBar }: { hideBar: Function }) {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <div className="flex flex-col space-y-2">
+          <div
+            className="flex flex-col space-y-2"
+            onClick={() => {
+              setSelectedEntry(
+                journalEntries.find(
+                  (entry) =>
+                    new Date(entry.date).toLocaleDateString() ===
+                    new Date().toLocaleDateString()
+                ) ?? null
+              );
+              if (selectedEntry != null) hideBar(true);
+            }}
+          >
             <p className="font-bold">Hoy</p>
-            <p className="font-black text-5xl">Feliz</p>
-            <p className="text-sm">Sigue asi y tendras un gran dia!</p>
+            {journalEntries.some(
+              (entry) =>
+                new Date(entry.date).toLocaleDateString() ===
+                new Date().toLocaleDateString()
+            ) ? (
+              <>
+                <p className="font-black text-5xl">
+                  {
+                    journalEntries.find(
+                      (entry) =>
+                        new Date(entry.date).toLocaleDateString() ===
+                        new Date().toLocaleDateString()
+                    )?.emotion
+                  }
+                </p>
+                <p className="text-sm">Sigue asi y tendras un gran dia!</p>
+              </>
+            ) : (
+              <>
+                <p className="font-black text-4xl">Nada por ahora</p>
+                <p className="text-sm"> Aun no has escrito nada hoy</p>
+              </>
+            )}
           </div>
           <p className="text-chart-2">{new Date().toLocaleDateString()}</p>
         </motion.div>
@@ -158,15 +191,17 @@ export default function JournalScreen({ hideBar }: { hideBar: Function }) {
                   hideBar(true);
                 }}
                 key={index}
-                className="bg-secondary rounded-xl p-5 mt-5"
+                className="bg-secondary rounded-xl p-5 mt-5 max-h-40 overflow-scroll "
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 50 }}
                 transition={{ duration: 0.5, delay: (index + 1) * 0.1 }}
               >
-                <p className="font-bold text-xl">{entry.title}</p>
-                <p className="text-sm">{entry.date}</p>
-                <p>{entry.resume}</p>
+                <p className="font-bold text-xl ">{entry.title}</p>
+                <p className="text-sm">
+                  {new Date(entry.date).toLocaleDateString()}
+                </p>
+                <p className="line-clamp-1">{entry.summary}</p>
               </motion.div>
             ))}
         </AnimatePresence>

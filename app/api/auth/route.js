@@ -6,7 +6,7 @@ export async function POST(req) {
   console.log("🟢 Conectado a la BD");
 
   try {
-    const { email, password, action } = await req.json();
+    const { email, password, name, action } = await req.json();
 
     if (action === 'login') {
       const user = await User.findOne({ email });
@@ -27,8 +27,29 @@ export async function POST(req) {
     } else if (action === 'logout') {
       console.log("🟢 Sesión cerrada para:", email);
       return new Response(JSON.stringify({ success: true, message: 'Sesión cerrada correctamente' }), { status: 200 });
-
-    } else {
+    }
+    else if (action === 'register'){
+      const user = await User.findOne({ email });
+      if (user) {
+        console.error("❌ Usuario encontrado:", email);
+        return new Response(JSON.stringify({ success: false, message: 'Usuario ya existente' }), { status: 401 });
+      }
+      axios.post('/user', {
+        email: email,
+        password: password,
+        name: name
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      console.log("🟢 Usuario creado:", email);
+      return new Response(JSON.stringify({ success: true, message: 'Sesión iniciada correctamente' }), { status: 200 });
+    }
+    
+    else {
       console.error("❌ Acción no válida:", action);
       return new Response(JSON.stringify({ success: false, message: 'Acción no válida' }), { status: 400 });
     }
@@ -37,3 +58,5 @@ export async function POST(req) {
     return new Response(JSON.stringify({ success: false, message: 'Error interno del servidor' }), { status: 500 });
   }
 }
+
+

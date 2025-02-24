@@ -1,6 +1,6 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import SpeechBubble from "@/components/chat/SpeechBubble";
 import Cuca from "@/components/svg/cuca";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,9 @@ export default function ChatScreen({
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [conversation, setConversation] = useState<
+    { type: string; message: string }[]
+  >([]);
+  const [lastResponse, setLastResponse] = useState<
     { type: string; message: string }[]
   >([]);
 
@@ -60,14 +63,28 @@ export default function ChatScreen({
         "https://magicloops.dev/api/loop/b3456033-5397-4097-9145-a6a7a9176f9a/run";
 
       const username = localStorage.getItem("username");
+
       const response = await fetch(url, {
         method: "POST",
-        body: JSON.stringify({ text: message + ".Me llamo " + { username } }),
+        body: JSON.stringify({
+          text: message,
+          speaker: { username },
+          lastResponse: lastResponse,
+        }),
       });
 
       const responseJson = await response.json();
 
       console.log(responseJson);
+      setLastResponse([]);
+      setLastResponse((prev) => [
+        ...prev,
+        { type: username || "user", message },
+      ]);
+      setLastResponse((prev) => [
+        ...prev,
+        { type: "Cuca", message: responseJson.response },
+      ]);
 
       addToConversation(responseJson.response, "Cuca");
     } catch (error) {

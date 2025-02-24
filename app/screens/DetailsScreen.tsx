@@ -4,6 +4,7 @@ import { code } from "@/fonts/fonts";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
+
 export default function DetailsScreen({
   entry,
   close,
@@ -13,7 +14,7 @@ export default function DetailsScreen({
 }) {
   return (
     <motion.div
-      className="w-full h-[100dvh] bg-background absolute top-0 justify-start  flex-col flex overflow-scroll "
+      className="w-full h-full bg-background absolute top-0 justify-start  flex-col flex overflow-scroll "
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0, transition: { duration: 0.2, delay: 0.1 } }}
       exit={{ opacity: 0, y: 40 }}
@@ -56,7 +57,7 @@ export default function DetailsScreen({
       </div>
 
       <motion.div
-        className="w-full bg-primary h-full	 rounded-t-[2rem] p-5 space-y-5 shadow-[0_-10px_20px_rgba(0,0,0,0.2)]"
+        className="w-full bg-primary h-fit	 rounded-t-[2rem] p-5 space-y-5 shadow-[0_-10px_20px_rgba(0,0,0,0.2)]"
         initial={{ opacity: 0, y: 40 }}
         animate={{
           opacity: 1,
@@ -65,7 +66,7 @@ export default function DetailsScreen({
         }}
       >
         <motion.div
-          className="w-full  bg-chart-2   rounded-3xl flex flex-col "
+          className="w-full  bg-chart-2  p-5  space-y-2 rounded-3xl flex flex-col "
           initial={{ opacity: 0, y: 40 }}
           animate={{
             opacity: 1,
@@ -74,12 +75,12 @@ export default function DetailsScreen({
           }}
         >
           <p
-            className="text-3xl font-bold p-5"
+            className="text-3xl font-bold "
             style={{ fontFamily: code.style.fontFamily }}
           >
             Advice
           </p>
-          <p className="text-lg p-5 w-full flex-1 text-start align-top ">
+          <p className="text-lg  w-full flex-1 text-start align-top ">
             {entry.advice}
           </p>
         </motion.div>

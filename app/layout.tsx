@@ -25,10 +25,7 @@ export default function RootLayout({
         style={poppins.style}
         className={`dark antialiased overflow-hidden`}
       >
-        <>
-          <LoginChecker />
-          {children}
-        </>
+        <LoginChecker>{children}</LoginChecker>
       </body>
     </html>
   );

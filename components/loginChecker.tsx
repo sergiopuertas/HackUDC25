@@ -1,22 +1,36 @@
 "use client";
-import { useEffect } from "react";
+import { getCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-export default function LoginChecker() {
+export default function LoginChecker({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    if (
-      typeof window === "undefined" ||
-      window.location.href.includes("/login")
-    )
-      return;
-    const username = localStorage.getItem("username");
-    if (username === null) {
-      window.location.href = "/login";
-    }
+    const checkAuth = async () => {
+      try {
+        const token = getCookie("token");
+        if (!token) {
+          router.push("/login");
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    if (window.location.href.includes("/login")) {
-      window.location.href = "/main";
-    }
+    checkAuth();
   }, []);
 
-  return <></>;
+  if (loading) {
+    return <div></div>;
+  }
+
+  return children;
 }

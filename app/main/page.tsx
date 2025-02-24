@@ -5,13 +5,9 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import JournalScreen from "@/app/screens/JournalScreen";
 import JoinScreen from "@/app/screens/JoinScreen";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Send } from "lucide-react";
-import { code } from "@/fonts/fonts";
-import Cuca from "@/components/svg/cuca";
 import { ScreenType } from "@/types/types";
 import ProfileScreen from "../screens/Profile";
+
 export default function Page() {
   const [screen, setScreen] = useState<ScreenType>("Chat");
   const [changeTo, setChangeTo] = useState<ScreenType[]>(["Chat", "Chat"]);

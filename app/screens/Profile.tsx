@@ -91,9 +91,18 @@ export default function ProfileScreen() {
     fetchDescription();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("username");
-    window.location.href = "/login";
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post("/api/auth", { action: "logout" });
+      if (response.data.success) {
+        console.log("Sesión cerrada");
+        window.location.href = "/login";
+      } else {
+        console.error("Error:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

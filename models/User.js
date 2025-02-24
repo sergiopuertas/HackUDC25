@@ -1,12 +1,9 @@
 // Importar mongoose
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 // Definir el esquema del usuario
 const UserSchema = new mongoose.Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
-    default: () => new mongoose.Types.ObjectId(),
-  },
   name: {
     type: String,
     required: [true, "El nombre es obligatorio"],
@@ -56,8 +53,17 @@ const UserSchema = new mongoose.Schema({
     minlength: [4, "La contraseña debe tener al menos 4 caracteres"],
   },
 });
-
+// Hash password antes de guardar
+UserSchema.pre("save", async function (next) {
+  if (this.isModified("password") || this.isNew) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
+  next();
+});
+// Método para comparar passwords
+UserSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
 // Crear el modelo Usuario basado en el esquema
-const User = mongoose.models.User || mongoose.model("User", UserSchema);
-
-export default User;
+export default mongoose.models.User || mongoose.model("User", UserSchema);

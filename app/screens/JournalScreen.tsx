@@ -152,7 +152,7 @@ export default function JournalScreen({ hideBar }: { hideBar: Function }) {
               ).map(([year, count], index) => (
                 <motion.div
                   key={index}
-                  className={`bg-secondary rounded-xl p-5 ml-5 min-w-40 overflow-hidden ${
+                  className={`bg-secondary rounded-xl p-5 ml-5 min-w-40 overflow-hidden relative ${
                     selectedYear === Number(year) ? "bg-yellow-500" : ""
                   }`}
                   initial={{ opacity: 0, y: 50 }}
@@ -166,11 +166,11 @@ export default function JournalScreen({ hideBar }: { hideBar: Function }) {
                     )
                   }
                 >
-                  <p className="absolute font-black  text-9xl text-black/60 -z-10 -top-2 text-center -right-5 ">
-                    {year.toString().slice(2, 4)}
-                  </p>
                   <p className="font-bold text-3xl">{year}</p>
                   <p>{count} entradas</p>
+                  <p className="absolute font-black  text-9xl text-black/60 mix-blend-overlay -top-2 text-center -right-5 ">
+                    {year.toString().slice(2, 4)}
+                  </p>
                 </motion.div>
               ))}
               <div className="w-20"></div>

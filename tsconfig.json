@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -22,19 +18,15 @@
       }
     ],
     "paths": {
-   "@/*": ["./*"],
-   "@": ["./"]
-}
-,
-    "target": "ES2017"
+      "@/*": ["./*"]
+    }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "app/api/boards/route.js", "app/utils/database.js", "app/utils/database.js"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    ".next/types/**/*.ts",
+    "components/withAuth.ts"
+  ],
+  "exclude": ["node_modules"]
 }

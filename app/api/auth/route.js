@@ -29,7 +29,7 @@ export async function POST(req) {
         );
       }
 
-      const token = jwt.sign({ userId: user._id }, "miclaveultrasecreta123", {
+      const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
         expiresIn: "1d",
       });
 
